@@ -1,3 +1,3 @@
-module fomapi.com
+module github.com/ViniciusReno/fomapi
 
-go 1.16
+go 1.13
