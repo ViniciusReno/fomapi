@@ -16,10 +16,11 @@ ORDER BY nome
 LIMIT $1
 OFFSET $2;
 
--- name: UpdateIngrediente :exec
+-- name: UpdateIngrediente :one
 UPDATE Ingredientes 
 SET nome = $2 AND ativo = $3
-WHERE id = $1;
+WHERE id = $1
+RETURNING *;
 
 -- name: DeleteIngrediente :exec
 DELETE FROM Ingredientes 

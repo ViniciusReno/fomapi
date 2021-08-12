@@ -17,8 +17,8 @@ INSERT INTO Ingredientes (
 `
 
 type AddIngredienteParams struct {
-	Nome  string      `json:"nome"`
-	Ativo interface{} `json:"ativo"`
+	Nome  string `json:"nome"`
+	Ativo bool   `json:"ativo"`
 }
 
 func (q *Queries) AddIngrediente(ctx context.Context, arg AddIngredienteParams) (Ingrediente, error) {
@@ -100,19 +100,27 @@ func (q *Queries) ListIngrediente(ctx context.Context, arg ListIngredienteParams
 	return items, nil
 }
 
-const updateIngrediente = `-- name: UpdateIngrediente :exec
+const updateIngrediente = `-- name: UpdateIngrediente :one
 UPDATE Ingredientes 
-SET nome = $2 AND ativo = $3
+SET nome = $2 , ativo = $3
 WHERE id = $1
+RETURNING id, nome, ativo, criado_em
 `
 
 type UpdateIngredienteParams struct {
-	ID    int64       `json:"id"`
-	Nome  string      `json:"nome"`
-	Ativo interface{} `json:"ativo"`
+	ID    int64  `json:"id"`
+	Nome  string `json:"nome"`
+	Ativo bool   `json:"ativo"`
 }
 
-func (q *Queries) UpdateIngrediente(ctx context.Context, arg UpdateIngredienteParams) error {
-	_, err := q.db.ExecContext(ctx, updateIngrediente, arg.ID, arg.Nome, arg.Ativo)
-	return err
+func (q *Queries) UpdateIngrediente(ctx context.Context, arg UpdateIngredienteParams) (Ingrediente, error) {
+	row := q.db.QueryRowContext(ctx, updateIngrediente, arg.ID, arg.Nome, arg.Ativo)
+	var i Ingrediente
+	err := row.Scan(
+		&i.ID,
+		&i.Nome,
+		&i.Ativo,
+		&i.CriadoEm,
+	)
+	return i, err
 }

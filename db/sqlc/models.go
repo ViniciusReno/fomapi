@@ -7,21 +7,8 @@ import (
 )
 
 type Ingrediente struct {
-	ID       int64       `json:"id"`
-	Nome     string      `json:"nome"`
-	Ativo    interface{} `json:"ativo"`
-	CriadoEm time.Time   `json:"criado_em"`
-}
-
-type Receita struct {
 	ID       int64     `json:"id"`
 	Nome     string    `json:"nome"`
-	Preparo  string    `json:"preparo"`
+	Ativo    bool      `json:"ativo"`
 	CriadoEm time.Time `json:"criado_em"`
-}
-
-type ReceitaIngrediente struct {
-	ID            int64 `json:"id"`
-	IDIngrediente int32 `json:"id_ingrediente"`
-	IDReceita     int32 `json:"id_receita"`
 }
