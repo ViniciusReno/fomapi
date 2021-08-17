@@ -102,7 +102,7 @@ func (q *Queries) ListIngredients(ctx context.Context, arg ListIngredientsParams
 
 const updateIngredient = `-- name: UpdateIngredient :one
 UPDATE Ingredients 
-SET nome = $2 AND ativo = $3
+SET nome = $2, ativo = $3
 WHERE id = $1
 RETURNING id, nome, ativo, criado_em
 `

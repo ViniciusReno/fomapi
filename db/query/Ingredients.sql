@@ -18,7 +18,7 @@ OFFSET $2;
 
 -- name: UpdateIngredient :one
 UPDATE Ingredients 
-SET nome = $2 AND ativo = $3
+SET nome = $2, ativo = $3
 WHERE id = $1
 RETURNING *;
 
