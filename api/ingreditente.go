@@ -44,7 +44,7 @@ func (server *Server) getIngredient(ctx *gin.Context) {
 		return
 	}
 
-	ing, err := server.store.GetIngreditente(ctx, req.ID)
+	ing, err := server.store.GetIngreditent(ctx, req.ID)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errResponse(err))
@@ -69,12 +69,12 @@ func (server *Server) listIngredient(ctx *gin.Context) {
 		return
 	}
 
-	arg := db.ListIngredientParams{
+	arg := db.ListIngredientsParams{
 		Limit:  req.PageSize,
 		Offset: (req.PageID - 1) * req.PageSize,
 	}
 
-	ings, err := server.store.ListIngredient(ctx, arg)
+	ings, err := server.store.ListIngredients(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errResponse(err))
 		return

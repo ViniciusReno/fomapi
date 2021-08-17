@@ -43,13 +43,13 @@ func (q *Queries) DeleteIngredient(ctx context.Context, id int64) error {
 	return err
 }
 
-const getIngreditente = `-- name: GetIngreditente :one
+const getIngreditent = `-- name: GetIngreditent :one
 SELECT id, nome, ativo, criado_em FROM Ingredients
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetIngreditente(ctx context.Context, id int64) (Ingredient, error) {
-	row := q.db.QueryRowContext(ctx, getIngreditente, id)
+func (q *Queries) GetIngreditent(ctx context.Context, id int64) (Ingredient, error) {
+	row := q.db.QueryRowContext(ctx, getIngreditent, id)
 	var i Ingredient
 	err := row.Scan(
 		&i.ID,
@@ -60,20 +60,20 @@ func (q *Queries) GetIngreditente(ctx context.Context, id int64) (Ingredient, er
 	return i, err
 }
 
-const listIngredient = `-- name: ListIngredient :many
+const listIngredients = `-- name: ListIngredients :many
 SELECT id, nome, ativo, criado_em FROM Ingredients
 ORDER BY nome
 LIMIT $1
 OFFSET $2
 `
 
-type ListIngredientParams struct {
+type ListIngredientsParams struct {
 	Limit  int32 `json:"limit"`
 	Offset int32 `json:"offset"`
 }
 
-func (q *Queries) ListIngredient(ctx context.Context, arg ListIngredientParams) ([]Ingredient, error) {
-	rows, err := q.db.QueryContext(ctx, listIngredient, arg.Limit, arg.Offset)
+func (q *Queries) ListIngredients(ctx context.Context, arg ListIngredientsParams) ([]Ingredient, error) {
+	rows, err := q.db.QueryContext(ctx, listIngredients, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (q *Queries) ListIngredient(ctx context.Context, arg ListIngredientParams) 
 
 const updateIngredient = `-- name: UpdateIngredient :one
 UPDATE Ingredients 
-SET nome = $2 , ativo = $3
+SET nome = $2 AND ativo = $3
 WHERE id = $1
 RETURNING id, nome, ativo, criado_em
 `

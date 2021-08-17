@@ -9,8 +9,8 @@ import (
 type Querier interface {
 	AddIngredient(ctx context.Context, arg AddIngredientParams) (Ingredient, error)
 	DeleteIngredient(ctx context.Context, id int64) error
-	GetIngreditente(ctx context.Context, id int64) (Ingredient, error)
-	ListIngredient(ctx context.Context, arg ListIngredientParams) ([]Ingredient, error)
+	GetIngreditent(ctx context.Context, id int64) (Ingredient, error)
+	ListIngredients(ctx context.Context, arg ListIngredientsParams) ([]Ingredient, error)
 	UpdateIngredient(ctx context.Context, arg UpdateIngredientParams) (Ingredient, error)
 }
 

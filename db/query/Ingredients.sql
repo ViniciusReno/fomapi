@@ -6,11 +6,11 @@ INSERT INTO Ingredients (
   $1, $2
 ) RETURNING *;
 
--- name: GetIngreditente :one
+-- name: GetIngreditent :one
 SELECT * FROM Ingredients
 WHERE id = $1 LIMIT 1;
 
--- name: ListIngredient :many
+-- name: ListIngredients :many
 SELECT * FROM Ingredients
 ORDER BY nome
 LIMIT $1

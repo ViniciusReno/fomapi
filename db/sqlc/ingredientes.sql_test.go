@@ -36,7 +36,7 @@ func TestAddIngredient(t *testing.T) {
 
 func TestGetIngreditente(t *testing.T) {
 	ing1 := createRandomIngredient(t)
-	ing2, err := testQueries.GetIngreditente(context.Background(), ing1.ID)
+	ing2, err := testQueries.GetIngreditent(context.Background(), ing1.ID)
 
 	require.NoError(t, err)
 	require.NotEmpty(t, ing2)
@@ -66,7 +66,7 @@ func TestDeleteIngredient(t *testing.T) {
 	err := testQueries.DeleteIngredient(context.Background(), ing1.ID)
 	require.NoError(t, err)
 
-	ing2, err := testQueries.GetIngreditente(context.Background(), ing1.ID)
+	ing2, err := testQueries.GetIngreditent(context.Background(), ing1.ID)
 	require.Error(t, err)
 	require.EqualError(t, err, sql.ErrNoRows.Error())
 	require.Empty(t, ing2)
@@ -77,12 +77,12 @@ func TestListIngredient(t *testing.T) {
 		createRandomIngredient(t)
 	}
 
-	arg := ListIngredientParams{
+	arg := ListIngredientsParams{
 		Limit:  5,
 		Offset: 5,
 	}
 
-	ings, err := testQueries.ListIngredient(context.Background(), arg)
+	ings, err := testQueries.ListIngredients(context.Background(), arg)
 	require.NoError(t, err)
 	require.Len(t, ings, 5)
 
