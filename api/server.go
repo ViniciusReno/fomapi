@@ -15,7 +15,7 @@ func NewServer(store db.Store) *Server {
 	router := gin.Default()
 
 	router.POST("/Ingredients", server.addIngredient)
-	router.GET("/Ingredients:id", server.getIngredient)
+	router.GET("/Ingredients/:id", server.getIngredient)
 	router.GET("/Ingredients", server.listIngredient)
 
 	server.router = router
