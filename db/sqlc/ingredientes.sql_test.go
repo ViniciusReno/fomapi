@@ -11,32 +11,32 @@ import (
 )
 
 // TODO MOCK
-func createRandomIngrediente(t *testing.T) Ingrediente {
-	arg := AddIngredienteParams{
-		Nome:  util.RandomIngrediente(),
+func createRandomIngredient(t *testing.T) Ingredient {
+	arg := AddIngredientParams{
+		Nome:  util.RandomIngredient(),
 		Ativo: true,
 	}
 
-	Ingrediente, err := testQueries.AddIngrediente(context.Background(), arg)
+	ingredient, err := testQueries.AddIngredient(context.Background(), arg)
 	require.NoError(t, err)
-	require.NotEmpty(t, Ingrediente)
+	require.NotEmpty(t, ingredient)
 
-	require.Equal(t, arg.Ativo, Ingrediente.Ativo)
-	require.Equal(t, arg.Nome, Ingrediente.Nome)
+	require.Equal(t, arg.Ativo, ingredient.Ativo)
+	require.Equal(t, arg.Nome, ingredient.Nome)
 
-	require.NotZero(t, Ingrediente.ID)
-	require.NotZero(t, Ingrediente.CriadoEm)
+	require.NotZero(t, ingredient.ID)
+	require.NotZero(t, ingredient.CriadoEm)
 
-	return Ingrediente
+	return ingredient
 }
 
-func TestAddIngrediente(t *testing.T) {
-	createRandomIngrediente(t)
+func TestAddIngredient(t *testing.T) {
+	createRandomIngredient(t)
 }
 
 func TestGetIngreditente(t *testing.T) {
-	ing1 := createRandomIngrediente(t)
-	ing2, err := testQueries.GetIngreditente(context.Background(), ing1.ID)
+	ing1 := createRandomIngredient(t)
+	ing2, err := testQueries.GetIngreditent(context.Background(), ing1.ID)
 
 	require.NoError(t, err)
 	require.NotEmpty(t, ing2)
@@ -45,14 +45,14 @@ func TestGetIngreditente(t *testing.T) {
 	require.WithinDuration(t, ing1.CriadoEm, ing2.CriadoEm, time.Second)
 }
 
-func TestUpdateIngrediente(t *testing.T) {
-	ing1 := createRandomIngrediente(t)
-	arg := UpdateIngredienteParams{
+func TestUpdateIngredient(t *testing.T) {
+	ing1 := createRandomIngredient(t)
+	arg := UpdateIngredientParams{
 		ID:    ing1.ID,
 		Nome:  ing1.Nome,
 		Ativo: false,
 	}
-	ing2, err := testQueries.UpdateIngrediente(context.Background(), arg)
+	ing2, err := testQueries.UpdateIngredient(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, ing2)
 	require.Equal(t, ing1.ID, ing2.ID)
@@ -61,28 +61,28 @@ func TestUpdateIngrediente(t *testing.T) {
 	require.WithinDuration(t, ing1.CriadoEm, ing2.CriadoEm, time.Second)
 }
 
-func TestDeleteIngrediente(t *testing.T) {
-	ing1 := createRandomIngrediente(t)
-	err := testQueries.DeleteIngrediente(context.Background(), ing1.ID)
+func TestDeleteIngredient(t *testing.T) {
+	ing1 := createRandomIngredient(t)
+	err := testQueries.DeleteIngredient(context.Background(), ing1.ID)
 	require.NoError(t, err)
 
-	ing2, err := testQueries.GetIngreditente(context.Background(), ing1.ID)
+	ing2, err := testQueries.GetIngreditent(context.Background(), ing1.ID)
 	require.Error(t, err)
 	require.EqualError(t, err, sql.ErrNoRows.Error())
 	require.Empty(t, ing2)
 }
 
-func TestListIngrediente(t *testing.T) {
+func TestListIngredient(t *testing.T) {
 	for i := 0; i < 10; i++ {
-		createRandomIngrediente(t)
+		createRandomIngredient(t)
 	}
 
-	arg := ListIngredienteParams{
+	arg := ListIngredientsParams{
 		Limit:  5,
 		Offset: 5,
 	}
 
-	ings, err := testQueries.ListIngrediente(context.Background(), arg)
+	ings, err := testQueries.ListIngredients(context.Background(), arg)
 	require.NoError(t, err)
 	require.Len(t, ings, 5)
 

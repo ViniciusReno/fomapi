@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type Ingrediente struct {
+type Ingredient struct {
 	ID       int64     `json:"id"`
 	Nome     string    `json:"nome"`
 	Ativo    bool      `json:"ativo"`

@@ -7,11 +7,11 @@ import (
 )
 
 type Querier interface {
-	AddIngrediente(ctx context.Context, arg AddIngredienteParams) (Ingrediente, error)
-	DeleteIngrediente(ctx context.Context, id int64) error
-	GetIngreditente(ctx context.Context, id int64) (Ingrediente, error)
-	ListIngrediente(ctx context.Context, arg ListIngredienteParams) ([]Ingrediente, error)
-	UpdateIngrediente(ctx context.Context, arg UpdateIngredienteParams) (Ingrediente, error)
+	AddIngredient(ctx context.Context, arg AddIngredientParams) (Ingredient, error)
+	DeleteIngredient(ctx context.Context, id int64) error
+	GetIngreditent(ctx context.Context, id int64) (Ingredient, error)
+	ListIngredients(ctx context.Context, arg ListIngredientsParams) ([]Ingredient, error)
+	UpdateIngredient(ctx context.Context, arg UpdateIngredientParams) (Ingredient, error)
 }
 
 var _ Querier = (*Queries)(nil)

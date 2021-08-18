@@ -28,6 +28,6 @@ func RandomString(n int) string {
 	return sb.String()
 }
 
-func RandomIngrediente() string {
+func RandomIngredient() string {
 	return RandomString(6)
 }

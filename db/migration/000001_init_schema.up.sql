@@ -1,4 +1,4 @@
-CREATE TABLE "ingredientes" (
+CREATE TABLE "ingredients" (
     "id" bigserial PRIMARY KEY,
     "nome" VARCHAR NOT NULL,
     "ativo" BOOLEAN NOT NULL,
@@ -12,10 +12,10 @@ CREATE TABLE "ingredientes" (
 --     "criado_em" timestamptz NOT NULL DEFAULT (now())
 -- );
 
--- CREATE TABLE "receita_ingredientes" (
+-- CREATE TABLE "receita_Ingredients" (
 --     id bigserial PRIMARY KEY,
---     id_ingrediente INT NOT NULL,
+--     id_Ingredient INT NOT NULL,
 --     id_receita INT NOT NULL,
 --     CONSTRAINT fk_Receitas FOREIGN KEY(id_receita) REFERENCES "Receitas"(id),
---     CONSTRAINT fk_Ingredientes FOREIGN KEY(id_ingrediente) REFERENCES "Ingredientes"(id)
+--     CONSTRAINT fk_Ingredients FOREIGN KEY(id_Ingredient) REFERENCES "Ingredients"(id)
 -- );
