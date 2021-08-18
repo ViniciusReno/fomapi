@@ -17,17 +17,17 @@ func createRandomIngredient(t *testing.T) Ingredient {
 		Ativo: true,
 	}
 
-	Ingredient, err := testQueries.AddIngredient(context.Background(), arg)
+	ingredient, err := testQueries.AddIngredient(context.Background(), arg)
 	require.NoError(t, err)
-	require.NotEmpty(t, Ingredient)
+	require.NotEmpty(t, ingredient)
 
-	require.Equal(t, arg.Ativo, Ingredient.Ativo)
-	require.Equal(t, arg.Nome, Ingredient.Nome)
+	require.Equal(t, arg.Ativo, ingredient.Ativo)
+	require.Equal(t, arg.Nome, ingredient.Nome)
 
-	require.NotZero(t, Ingredient.ID)
-	require.NotZero(t, Ingredient.CriadoEm)
+	require.NotZero(t, ingredient.ID)
+	require.NotZero(t, ingredient.CriadoEm)
 
-	return Ingredient
+	return ingredient
 }
 
 func TestAddIngredient(t *testing.T) {

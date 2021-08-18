@@ -1,5 +1,5 @@
 -- name: AddIngredient :one
-INSERT INTO Ingredients (
+INSERT INTO ingredients (
   nome,
   ativo
 ) VALUES (
@@ -7,21 +7,21 @@ INSERT INTO Ingredients (
 ) RETURNING *;
 
 -- name: GetIngreditent :one
-SELECT * FROM Ingredients
+SELECT * FROM ingredients
 WHERE id = $1 LIMIT 1;
 
 -- name: ListIngredients :many
-SELECT * FROM Ingredients
+SELECT * FROM ingredients
 ORDER BY nome
 LIMIT $1
 OFFSET $2;
 
 -- name: UpdateIngredient :one
-UPDATE Ingredients 
+UPDATE ingredients 
 SET nome = $2, ativo = $3
 WHERE id = $1
 RETURNING *;
 
 -- name: DeleteIngredient :exec
-DELETE FROM Ingredients 
+DELETE FROM ingredients 
 WHERE id = $1;

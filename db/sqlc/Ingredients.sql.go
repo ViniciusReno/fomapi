@@ -8,7 +8,7 @@ import (
 )
 
 const addIngredient = `-- name: AddIngredient :one
-INSERT INTO Ingredients (
+INSERT INTO ingredients (
   nome,
   ativo
 ) VALUES (
@@ -34,7 +34,7 @@ func (q *Queries) AddIngredient(ctx context.Context, arg AddIngredientParams) (I
 }
 
 const deleteIngredient = `-- name: DeleteIngredient :exec
-DELETE FROM Ingredients 
+DELETE FROM ingredients 
 WHERE id = $1
 `
 
@@ -44,7 +44,7 @@ func (q *Queries) DeleteIngredient(ctx context.Context, id int64) error {
 }
 
 const getIngreditent = `-- name: GetIngreditent :one
-SELECT id, nome, ativo, criado_em FROM Ingredients
+SELECT id, nome, ativo, criado_em FROM ingredients
 WHERE id = $1 LIMIT 1
 `
 
@@ -61,7 +61,7 @@ func (q *Queries) GetIngreditent(ctx context.Context, id int64) (Ingredient, err
 }
 
 const listIngredients = `-- name: ListIngredients :many
-SELECT id, nome, ativo, criado_em FROM Ingredients
+SELECT id, nome, ativo, criado_em FROM ingredients
 ORDER BY nome
 LIMIT $1
 OFFSET $2
@@ -101,7 +101,7 @@ func (q *Queries) ListIngredients(ctx context.Context, arg ListIngredientsParams
 }
 
 const updateIngredient = `-- name: UpdateIngredient :one
-UPDATE Ingredients 
+UPDATE ingredients 
 SET nome = $2, ativo = $3
 WHERE id = $1
 RETURNING id, nome, ativo, criado_em
