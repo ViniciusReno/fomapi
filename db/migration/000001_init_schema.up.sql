@@ -1,4 +1,4 @@
-CREATE TABLE "ingredients" (
+CREATE TABLE IF NOT EXISTS "ingredients" (
     "id" bigserial PRIMARY KEY,
     "nome" VARCHAR NOT NULL,
     "ativo" BOOLEAN NOT NULL,

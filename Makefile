@@ -8,10 +8,10 @@ dropdb:
 	docker exec -it postgres dropdb fomapi
 
 migrateup:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/fomapi?sslmode=disable" -verbose up
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/postgres?sslmode=disable" -verbose up
 
 migratedown:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/fomapi?sslmode=disable" -verbose down
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/postgres?sslmode=disable" -verbose down
 
 sqlc:
 	sqlc generate
@@ -21,5 +21,8 @@ test:
 
 server:
 	go run main.go
+
+rundocker:
+	cd docker && docker compose build && docker compose up
 
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc server

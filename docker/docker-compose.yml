@@ -1,0 +1,63 @@
+version: "3.8"
+services:
+    redis:
+      restart: always
+      image: redis:6.2.5
+      volumes:
+        - redis_data:/data
+        - /docker/etc/redis/single.conf
+      ports:
+        - ${REDIS_PORT:-6379}:6379
+      command:
+        - redis-server
+        - /docker/etc/redis/single.conf
+
+    web:
+      depends_on:
+        - postgres
+      restart: on-failure
+      build: .
+      cap_add:
+        - SYS_PTRACE
+      security_opt:
+        - seccomp:unconfined
+      volumes:
+        - type: bind
+          source: ../
+          target: /app/src
+
+        - type: bind
+          source: $HOME/go
+          target: /go
+      ports:
+        - 7880:7880
+      entrypoint: /app/air-entrypoint.bash
+    
+    postgres:
+      restart: always
+      image: postgres:12.6
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+        - type: bind
+          source: ../../../../
+          target: /src
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_PASSWORD: "secret"
+        POSTGRES_USER: "root"
+
+    # migrate:
+    #   image: migrate/migrate
+    #   depends_on:
+    #     - postgres
+    #   volumes: 
+    #     - /db/migration
+    #   command:
+    #     # [ "-path", "/db/migration", "-database",  "postgresql://root:secret@host.docker.internal:5432/postgres?sslmode=disable", "up" ]
+    #      -path db/migration -database "postgresql://root:secret@host.docker.internal:5432/postgres?sslmode=disable" -verbose up
+      
+volumes:
+  postgres_data:
+  redis_data:
